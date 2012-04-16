@@ -354,7 +354,7 @@ class UserDatabase {
 		DatabaseHelper::unlock($db);
 	}
 	
-	public function getProfile($id) {
+	public function getProfile($id, $legacy = false) {
 	
 		$record = DatabaseHelper::fetchOne(
 				Database::getConnection(),
@@ -407,11 +407,13 @@ class UserDatabase {
 				}
 			}
 		}
-		$r["ProfileInfo"] = array(
-				"ID" => $id,
-				"UserID" => $record["UserID"],
-				"Path" => \chardev\FormatHelper::getProfileLink($id, $r[0][0])
-		);
+		if( ! $legacy ) {
+			$r["ProfileInfo"] = array(
+					"ID" => $id,
+					"UserID" => $record["UserID"],
+					"Path" => \chardev\FormatHelper::getProfileLink($id, $r[0][0])
+			);
+		}
 		return $r;
 	}
 	
