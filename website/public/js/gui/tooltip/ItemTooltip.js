@@ -255,7 +255,7 @@ var ItemTooltip = {
 			if (itm.gems[i] != null) {
 				html += Tools.addTr1(
 					"<div class='tooltip_gem' style='background-image:url(/images/icons/gem/" + itm.gems[i].icon + ".png);'>" + 
-					itm.gems[i].gemProperties.enchant.getTooltip( character ) + 
+					SpellItemEnchantmentTooltip.getHtml( itm.gems[i].gemProperties.enchant, character ) +
 					"</div>"
 				);
 			}
@@ -279,11 +279,11 @@ var ItemTooltip = {
 		//
 
 		if (itm.socketBonus) {
-			html += Tools.addTr1("<span class='" + (itm.isSocketBonusActive() ? "green" : "grey") + "'>" + locale['socketBonus'] + ": " + itm.socketBonus.description + "</span>");
+			html += Tools.addTr1("<span class='" + (itm.isSocketBonusActive() ? "green" : "grey") + "'>" + locale['socketBonus'] + ": " + SpellItemEnchantmentTooltip.getDescription(itm.socketBonus) + "</span>");
 		}
 		
 		if (itm.gemProperties) {
-			html += Tools.addTr1(itm.gemProperties.enchant.description);
+			html += Tools.addTr1(SpellItemEnchantmentTooltip.getDescription(itm.gemProperties.enchant));
 		}					
 		
 		if(itm.durability){

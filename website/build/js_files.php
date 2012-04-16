@@ -77,6 +77,7 @@
 		 "js/gui/tooltip/Tooltip.js",
 		 "js/gui/tooltip/StatTooltip.js",
 		 "js/gui/tooltip/TalentTooltip.js",
+		 "js/gui/tooltip/SpellItemEnchantmentTooltip.js",
 		
 		 "js/gui/character_sheet/BuffBar.js",
 		 "js/gui/character_sheet/CharacterSheet.js",

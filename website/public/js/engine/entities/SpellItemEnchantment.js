@@ -161,42 +161,6 @@ SpellItemEnchantment.prototype = {
 	isActive : function(characterScope) {
 		return this.fitsLevelRequirements(characterScope) && this.fitsSkillLineRequirements(characterScope) && this.isGemActive(characterScope);
 	},
-	
-	/**
-	 * @param {Character} characterScope
-	 * @returns {string}
-	 */
-	getTooltip : function( characterScope )
-	{
-		var html = "<table cellpadding = 0 cellspacing = 0>";
-		var fitsLevelReqs = this.fitsLevelRequirements(characterScope);
-		var fitsSkillReqs = this.fitsSkillLineRequirements(characterScope);
-		var fitsGemConditions = this.isGemActive(characterScope);
-		
-		html += Tools.addTr1(
-			"<span "+( fitsSkillReqs && fitsLevelReqs ? ( fitsGemConditions ? "class='green'" : "class='grey'" ):"class='red'")+">"+
-			( this.types[0] == 7 && this.spells[0] ? locale["use"]+": " + this.spells[0].getDescription(characterScope).join("<br />") : this.description ) + 
-			"</span>"
-		);
-		
-		if( !fitsLevelReqs )
-		{
-			html += Tools.addTr1(
-				"<span class='red'>" +
-				TextIO.sprintf1(locale['reqLevel'],this.requiredCharacterLevel)+
-				"</span>"
-			);
-		}
-		if( !fitsSkillReqs )
-		{
-			html += Tools.addTr1(
-				"<span class='red'>" +
-				locale['req']+" "+this.requiredSkillLine.name+" ("+this.requiredSkillLineLevel+")"+
-				"</span>"
-			);
-		}
-		return html + "</table>";
-	},
 	/**
 	 * @param {Auras} auras
 	 */
