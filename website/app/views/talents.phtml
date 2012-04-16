@@ -77,7 +77,10 @@
 			var serialized = <?php echo json_encode(TalentsData::getInstance()->fromId($id)) ?>;
 			
 			if(serialized) {
-				Chardev.showTalents( serialized, 'talent_parent', <?php echo json_encode($distribution) ?>);
+				var talents = new Talents( serialized );
+				var talentsGui = new TalentsGui();
+				new TalentsAdapter(talents, talentsGui, new Character());
+				DOM.set(talent_parent,talentsGui.node);
 			}
 		});
 	</script>

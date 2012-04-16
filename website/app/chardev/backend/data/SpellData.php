@@ -37,7 +37,7 @@ class SpellData extends Data
 		
 		$spell = null;
 		$db = Database::getConnection();
-		$record = DatabaseHelper::fetchOne($db, "SELECT * FROM `spell` WHERE `ID` = ? LIMIT 1", array($id));
+		$record = DatabaseHelper::fetchOne($db, "SELECT * FROM `Spell` LEFT JOIN `SpellMisc` ON `spell`.`SpellMiscID` = `SpellMisc`.`ID` WHERE `Spell`.`ID` = ? LIMIT 1", array($id));
 		$resolve = $spell_list == null;
 		
 		if( ! $record ) {
@@ -79,21 +79,21 @@ class SpellData extends Data
 		//
 		// SpellPower
 		//
-		$spellpower = null;
-		if( $record['SpellPowerID'] ) {
-			$joinRecord = DatabaseHelper::fetchOne($db, "SELECT * FROM `spellpower` WHERE `ID` = ?", array($record['SpellPowerID']));
-			if( $joinRecord ) {
-				$spellpower = array(
-					(float)$joinRecord['Absolute'],
-					(float)$joinRecord['Percent'],
-				);
-			}
-		}
-		$spell[6] = $spellpower;
+// 		$spellpower = null;
+// 		if( $record['SpellPowerID'] ) {
+// 			$joinRecord = DatabaseHelper::fetchOne($db, "SELECT * FROM `spellpower` WHERE `ID` = ?", array($record['SpellPowerID']));
+// 			if( $joinRecord ) {
+// 				$spellpower = array(
+// 					(float)$joinRecord['Absolute'],
+// 					(float)$joinRecord['Percent'],
+// 				);
+// 			}
+// 		}
+// 		$spell[6] = $spellpower;
 		//
 		// EnergyType
 		//
-		$spell[7] = (int)$record['EnergyType'];
+// 		$spell[7] = (int)$record['EnergyType'];
 		//
 		// SpellCastTimes
 		//
@@ -179,16 +179,7 @@ class SpellData extends Data
 					(int)$joinRecord['CastTimeEnd'],
 					(int)$joinRecord['Intervals'],
 					(int)$joinRecord['Distribution'],
-					array(
-						(float)$joinRecord['Coefficient1'],
-						(float)$joinRecord['Coefficient2'],
-						(float)$joinRecord['Coefficient3']
-					),
-					array(
-						(float)$joinRecord['Dice1'],
-						(float)$joinRecord['Dice2'],
-						(float)$joinRecord['Dice3']
-					),
+					(float)$joinRecord['Coefficient']
 				);
 				// TODO complete array, make sense of columns
 			}

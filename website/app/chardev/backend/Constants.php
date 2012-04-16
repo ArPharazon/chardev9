@@ -14,7 +14,7 @@ class Constants
 	const WARLOCK = 9;
 	const DRUID = 11;
 	
-	const USE_CACHE = true;
+	const USE_CACHE = false;
 	const STRICT = false;
 	
 	const ITEMS_PER_PAGE = 20;

@@ -26,24 +26,24 @@ public class DevelChardevDB {
 		return false;
 	}
 	private static final String dbs[] = new String[]{
-		"jdbc:mysql://localhost:3306/chardev_cataclysm?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_fr?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_de?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_es?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_ru?"
+		"jdbc:mysql://localhost:3306/chardev_mop?",
+		"jdbc:mysql://localhost:3306/chardev_mop_fr?",
+		"jdbc:mysql://localhost:3306/chardev_mop_de?",
+		"jdbc:mysql://localhost:3306/chardev_mop_es?",
+		"jdbc:mysql://localhost:3306/chardev_mop_ru?"
 	};
 	private static final String basePaths[] = new String[]{
-		"Y:/chardev/cataclysm/DBFilesClient/",
-		"Y:/chardev/cataclysm/fr/DBFilesClient/",
-		"Y:/chardev/cataclysm/de/DBFilesClient/",
-		"Y:/chardev/cataclysm/es/DBFilesClient/",
-		"Y:/chardev/cataclysm/ru/DBFilesClient/"
+		"Y:/chardev/mop/DBFilesClient/",
+		"Y:/chardev/mop/fr/DBFilesClient/",
+		"Y:/chardev/mop/de/DBFilesClient/",
+		"Y:/chardev/mop/es/DBFilesClient/",
+		"Y:/chardev/mop/ru/DBFilesClient/"
 	};
 
 	public static void main(String[] args) {
 		connectToDatabase(dbs[0]);
 		DBCParser p;
-		p = new DBCParser(databaseConnection, "y:\\chardev\\cataclysm\\dbfilesclient\\researchproject.dbc", "researchproject");
+		p = new DBCParser(databaseConnection, "y:\\chardev\\mop\\dbfilesclient\\spellmisc.dbc", "spellmisc");
 		p.parse();
 	}
 }
