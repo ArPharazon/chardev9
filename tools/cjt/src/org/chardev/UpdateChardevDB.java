@@ -8,21 +8,21 @@ import org.chardev.cjt.DBCParser;
 
 public class UpdateChardevDB {
 	
-	private static final int ITEM_SPARSE_SKIP = 0x74d72 - 32;
+	private static final int ITEM_SPARSE_SKIP = 0x7ab20 - 32;
 	
 	private static final String dbs[] = new String[]{
-		"jdbc:mysql://localhost:3306/chardev_cataclysm?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_fr?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_de?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_es?",
-		"jdbc:mysql://localhost:3306/chardev_cataclysm_ru?"
+		"jdbc:mysql://localhost:3306/chardev_mop?",
+		"jdbc:mysql://localhost:3306/chardev_mop_fr?",
+		"jdbc:mysql://localhost:3306/chardev_mop_de?",
+		"jdbc:mysql://localhost:3306/chardev_mop_es?",
+		"jdbc:mysql://localhost:3306/chardev_mop_ru?"
 	};
 	private static final String basePaths[] = new String[]{
-		"Y:/chardev/cataclysm/DBFilesClient/",
-		"Y:/chardev/cataclysm/fr/DBFilesClient/",
-		"Y:/chardev/cataclysm/de/DBFilesClient/",
-		"Y:/chardev/cataclysm/es/DBFilesClient/",
-		"Y:/chardev/cataclysm/ru/DBFilesClient/"
+		"Y:/chardev/mop/DBFilesClient/",
+		"Y:/chardev/mop/fr/DBFilesClient/",
+		"Y:/chardev/mop/de/DBFilesClient/",
+		"Y:/chardev/mop/es/DBFilesClient/",
+		"Y:/chardev/mop/ru/DBFilesClient/"
 	};
 	private static final String locales[] = new String[]{
 		"EN",
@@ -56,8 +56,8 @@ public class UpdateChardevDB {
 	public static void main(String[] args) {	
 		boolean skipLocale = false;
 		
-		connectToDatabase(dbs[0]);
-		staticUpdate(basePaths[0]);
+//		connectToDatabase(dbs[0]);
+//		staticUpdate(basePaths[0]);
 		
 		for( int i=0; i< dbs.length; i++ ) {
 			connectToDatabase(dbs[i]);
@@ -75,14 +75,14 @@ public class UpdateChardevDB {
 	private static void cacheUpdate() {
 		DBCParser p;
 		String itemSparse[] = new String[]{
-//			"Y:/chardev/cataclysm/adb/Item-sparse.adb"
+//			"Y:/chardev/mop/adb/Item-sparse.adb"
 		};
 		
 		String item[] = new String[]{
-//			"Y:/chardev/cataclysm/adb/Item.adb"
+//			"Y:/chardev/mop/adb/Item.adb"
 		};
 		
-		connectToDatabase("jdbc:mysql://localhost:3306/chardev_cataclysm_static?");
+		connectToDatabase("jdbc:mysql://localhost:3306/chardev_mop_static?");
 		for( String fileName : itemSparse ) {
 			System.out.println("Processing: "+fileName);
 			p = new DBCParser(
@@ -95,7 +95,7 @@ public class UpdateChardevDB {
 			p.parse();
 		}
 
-		connectToDatabase("jdbc:mysql://localhost:3306/chardev_cataclysm?");
+		connectToDatabase("jdbc:mysql://localhost:3306/chardev_mop?");
 		for( String fileName : item ) {
 			System.out.println("Processing: "+fileName);
 			p = new DBCParser(
@@ -114,10 +114,10 @@ public class UpdateChardevDB {
 			"gtchancetomeleecritbase",
 			"gtchancetospellcrit",
 			"gtchancetospellcritbase",
-			"gtOCTRegenMP",
-			"gtOCTRegenHP",
+			//"gtOCTRegenMP",
+			//"gtOCTRegenHP",
 			"gtRegenMPPerSpt",
-			"gtRegenHPPerSpt",
+			//"gtRegenHPPerSpt",
 			"gtCombatRatings",
 			"gtspellscaling",
 			"itemarmorquality",
@@ -147,7 +147,7 @@ public class UpdateChardevDB {
 			"spellcategory",
 			"spellclassoptions",
 			"spellcooldowns",
-			"spelldifficulty",
+			//"spelldifficulty",
 			"spellduration",
 			"spelleffect",
 			"spellequippeditems",
@@ -170,7 +170,7 @@ public class UpdateChardevDB {
 			"spelltargetrestrictions",
 			"spellvisual",
 			"talent",
-			"talenttreeprimaryspells"
+			//"talenttreeprimaryspells"
 		};
 		//
 		//	DBC FILES
@@ -219,19 +219,19 @@ public class UpdateChardevDB {
 			"spelldescriptionvariables",
 			"spellitemenchantment",
 			"spellrange",
-			"talentTab"
+			//"talentTab"
 		};
 		//
 		//	DBC FILES
 		//	
 		for( int i=0; i<files.length; i++ ) {
-			updateTable(files[i], basePath);
+			//updateTable(files[i], basePath);
 		}
 		//
 		//	ITEM SPARSE
 		//
 		System.out.println("Processing: Item-Sparse.db2");
-		connectToDatabase("jdbc:mysql://localhost:3306/chardev_cataclysm_static?");
+		connectToDatabase("jdbc:mysql://localhost:3306/chardev_mop_static?");
 		DBCParser p = new DBCParser(
 				databaseConnection, 
 				basePath+"Item-Sparse.db2", 

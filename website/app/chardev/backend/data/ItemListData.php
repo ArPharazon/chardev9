@@ -258,7 +258,7 @@ class ItemListData extends ListData
 		$query = "SELECT s.`ID`, ".$weightedScore." as WeightedScore ".
 				"FROM `item_sparse` s ".
 				"INNER JOIN `item` i on i.`ID` = s.`ID` ".
-				"LEFT JOIN chardev_cataclysm_static.`chardev_item_stats` cis ON cis.`ItemID`=i.`ID` ".
+				"LEFT JOIN chardev_mop_static.`chardev_item_stats` cis ON cis.`ItemID`=i.`ID` ".
 				( $join_gem_properties ? "LEFT JOIN `gemproperties` gp ON s.`GemPropertiesID` = gp.`ID` " : "" ) .
 				" WHERE ".$where.
 				($orderClause ? " ORDER BY ".$orderClause : "").

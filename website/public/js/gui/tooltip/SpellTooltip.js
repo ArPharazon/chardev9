@@ -8,7 +8,7 @@ var SpellTooltip = {
 	 */
 	getHTML : function( spell, characterScope, type, args )
 	{
-		spell.setLevel( characterScope != null ? characterScope.level : DEFAULT_LEVEL );
+		spell.setLevel( characterScope != null ? characterScope.level : Character.MAX_LEVEL );
 		
 		var html = "<table cellpadding = 0 cellspacing = 0 style='vertical-align: top'>";
 		var tmp = "", lHtml = '', rHtml = '';

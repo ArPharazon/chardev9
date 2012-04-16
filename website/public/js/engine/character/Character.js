@@ -112,7 +112,7 @@ function Character() {
 	this.__lastSaved = null; 
 }
 
-Character.MAX_LEVEL = 85;
+Character.MAX_LEVEL = 90;
 
 Character.prototype = {
 	/** @type{GenericSubject} **/
@@ -157,7 +157,7 @@ Character.prototype = {
 		this.eventMgr.removeObserver(observer);
 	},
 	setLevel : function( level ) {		
-		if (level >= this.getMinLevel() && level <= MAX_LEVEL ) {
+		if (level >= this.getMinLevel() && level <= Character.MAX_LEVEL ) {
 			if ( this.chrClass != null ) {
 				this.chrClass.setLevel(level);
 			}

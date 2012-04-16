@@ -25,7 +25,7 @@ function Spell( serialized ) {
 		}
 	}
 	//
-	this.level = 85;
+	this.level = Character.MAX_LEVEL;
 	this.serialized = serialized;
 	this.id = serialized[0];
 	this.name = serialized[1];

@@ -55,7 +55,7 @@ class ItemData extends Data
 		$item = null;
 		$db = Database::getConnection ();
 		$record = DatabaseHelper::fetchOne ( $db, 
-			"SELECT * FROM `item_sparse` s INNER JOIN `item` i ON i.`ID` = s.`ID` LEFT JOIN chardev_cataclysm_static.`chardev_item_stats` cis ON cis.`ItemID` = i.`ID` WHERE s.`ID` = ?", array ($id ) );
+			"SELECT * FROM `item_sparse` s INNER JOIN `item` i ON i.`ID` = s.`ID` LEFT JOIN chardev_mop_static.`chardev_item_stats` cis ON cis.`ItemID` = i.`ID` WHERE s.`ID` = ?", array ($id ) );
 		
 		if (! $record)
 		{
@@ -162,7 +162,7 @@ class ItemData extends Data
 		{
 			$item [41] = array ();
 			$stmt = DatabaseHelper::query ( $db, 
-				"SELECT * FROM `itemrandomproperties` irp " . "INNER JOIN chardev_cataclysm_static.`chardev_random_properties` crp ON irp.`ID` = crp.`ItemRandomPropertiesID` " . "WHERE crp.`ID`= ?", 
+				"SELECT * FROM `itemrandomproperties` irp " . "INNER JOIN chardev_mop_static.`chardev_random_properties` crp ON irp.`ID` = crp.`ItemRandomPropertiesID` " . "WHERE crp.`ID`= ?", 
 				array ($record ['RandomPropertiesID'] ) );
 			while ( false !== ($rpRecord = $stmt->fetch ()) )
 			{
@@ -184,7 +184,7 @@ class ItemData extends Data
 			$item [42] = array ();
 			//
 			// Get available suffixes, as mined from battle.net
-			$stmt = DatabaseHelper::query ( $db, "SELECT * FROM chardev_cataclysm_static.`chardev_random_suffix` WHERE `ID` = ?", array ($record ['RandomSuffixID'] ) );
+			$stmt = DatabaseHelper::query ( $db, "SELECT * FROM chardev_mop_static.`chardev_random_suffix` WHERE `ID` = ?", array ($record ['RandomSuffixID'] ) );
 			//
 			// Loop through them and retrieve the actual suffix and points from
 			// database
@@ -192,7 +192,7 @@ class ItemData extends Data
 			{
 				//
 				// Suffix
-				$suffixRecord = DatabaseHelper::fetchOne ( $db, "SELECT * FROM chardev_cataclysm.`itemrandomsuffix` WHERE ID = ?", array ($csfRecord ['ItemRandomSuffixID'] ) );
+				$suffixRecord = DatabaseHelper::fetchOne ( $db, "SELECT * FROM chardev_mop.`itemrandomsuffix` WHERE ID = ?", array ($csfRecord ['ItemRandomSuffixID'] ) );
 				//
 				// Points
 				$ptsRecord = DatabaseHelper::fetchOne ( $db, 

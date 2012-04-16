@@ -17,13 +17,13 @@ $th->addStyleSheets(array("chardev9.css","list.css","tooltip.css"));
 
 $th->addScripts(array("js/common/extern/md5.js","js/common/extern/json2.js","js/common/extern/jquery-1.7.2.min.js"));
 
-if( isset($_GET['debug']) ) {
+//if( isset($_GET['debug']) ) {
 	include '../build/js_files.php';
 	$th->addScripts($js_files);
-}
-else {
-	$th->addScript("js/all_optimised.js");
-}
+// }
+// else {
+// 	$th->addScript("js/all_optimised.js");
+// }
 
 $loggedInUser = Session::getLoggedInUser();
 

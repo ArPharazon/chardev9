@@ -9,9 +9,9 @@ import java.sql.Statement;
 /**
  * Java port of php/tools/update_items.php
  * 
- * Updates <code>chardev_cataclysm.item_sparse</code> with the currently
+ * Updates <code>chardev_mop.item_sparse</code> with the currently
  * available and up to date items and sets additional cached item data in
- * <code>chardev_cataclysm_static.chardev_item_stats</code>
+ * <code>chardev_mop_static.chardev_item_stats</code>
  * 
  * @author LeMartin
  * 
@@ -20,16 +20,16 @@ public class UpdateCachedItemTables {
 
 	public static void main(String[] args) {
 		Connection connectionLocaleDB = Database
-				.connectToDatabase(Database.CHARDEV_CATACLYSM);
+				.connectToDatabase(Database.CHARDEV_MOP);
 		Connection connectionStaticDB = Database
-				.connectToDatabase(Database.CHARDEV_CATACLYSM_STATIC);
+				.connectToDatabase(Database.CHARDEV_MOP_STATIC);
 		new UpdateCachedItemTables(connectionStaticDB, connectionLocaleDB);
 	}
 
 	protected final Connection connectionStaticDB, connectionLocaleDB;
 
 	/**
-	 * Updates <code>chardev_cataclysm.item_sparse</code> with the currently
+	 * Updates <code>chardev_mop.item_sparse</code> with the currently
 	 * available and up to date items.
 	 * 
 	 * @param connectionStaticDB
@@ -54,7 +54,7 @@ public class UpdateCachedItemTables {
 			PreparedStatement nameStatement = connectionStaticDB
 					.prepareStatement("SELECT Name,Description FROM item_working WHERE `Locale`=? AND `ID`=? ORDER BY `Version` DESC");
 			PreparedStatement copyStatement = connectionLocaleDB
-					.prepareStatement("REPLACE INTO chardev_cataclysm.`item_sparse` SELECT * FROM chardev_cataclysm_static.`item_working` WHERE `Locale`=? AND `Version`=? AND `ID`=?");
+					.prepareStatement("REPLACE INTO chardev_mop.`item_sparse` SELECT * FROM chardev_mop_static.`item_working` WHERE `Locale`=? AND `Version`=? AND `ID`=?");
 //			PreparedStatement prepReplace = connectionStaticDB.prepareStatement(
 //					"REPLACE INTO `chardev_item_stats` values (?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,0)"
 //				);
@@ -63,9 +63,9 @@ public class UpdateCachedItemTables {
 			Statement stmt = connectionStaticDB.createStatement();
 			ResultSet result = stmt
 					.executeQuery("SELECT * "
-							+ "FROM chardev_cataclysm_static.`item_working` s "
-							+ "INNER JOIN chardev_cataclysm.`item` i ON i.`ID` = s.`ID` "
-							+ "INNER JOIN chardev_cataclysm_static.`item_current` c ON c.`ID`=s.`ID` AND c.`Version` = s.`Version` "
+							+ "FROM chardev_mop_static.`item_working` s "
+							+ "INNER JOIN chardev_mop.`item` i ON i.`ID` = s.`ID` "
+							+ "INNER JOIN chardev_mop_static.`item_current` c ON c.`ID`=s.`ID` AND c.`Version` = s.`Version` "
 							+ "WHERE `Locale`='EN' ORDER BY i.`ID` ASC");
 			//
 			// Iterate over the result
@@ -88,7 +88,7 @@ public class UpdateCachedItemTables {
 				final int itemSubClassMask = 1 << itemSubClass;
 				//
 				//
-				int[] itemStats = new int[57];
+				int[] itemStats = new int[58];
 				double dps = 0, minDmg = 0, maxDmg = 0;
 				//
 				// update item sparse
@@ -281,9 +281,9 @@ public class UpdateCachedItemTables {
 			// Filter junk items
 			Statement filterStatement = connectionLocaleDB.createStatement();
 			filterStatement
-					.execute("UPDATE chardev_cataclysm_static.chardev_item_stats SET DoNotShow=1 "
+					.execute("UPDATE chardev_mop_static.chardev_item_stats SET DoNotShow=1 "
 							+ "WHERE ItemID IN ("
-							+ "SELECT ID FROM chardev_cataclysm.item_sparse s "
+							+ "SELECT ID FROM chardev_mop.item_sparse s "
 							+ "WHERE Name like 'QA %' "
 							+ "OR Name like 'Obsolete%' "
 							+ "OR Name like 'Deprecated %' "
@@ -297,8 +297,7 @@ public class UpdateCachedItemTables {
 							+ "OR TypeMask & 16 " + "OR ( Level > 404 && ItemID < 70000) " + ")");
 			filterStatement.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -311,12 +310,11 @@ public class UpdateCachedItemTables {
 			Statement stmt = connectionStaticDB.createStatement();
 			stmt.execute("REPLACE INTO item_current "
 					+ "SELECT `ID`, MAX(`Version`) "
-					+ "FROM chardev_cataclysm_static.item_working "
+					+ "FROM chardev_mop_static.item_working "
 					+ "GROUP BY `ID`");
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e);
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -383,7 +381,8 @@ public class UpdateCachedItemTables {
 						}
 						break;
 					case 3:
-						this.getSpellStats(itemStats, spellID);
+						// TODO: Where did the spellduration go?
+						// this.getSpellStats(itemStats, spellID);
 						break;
 					}
 				}

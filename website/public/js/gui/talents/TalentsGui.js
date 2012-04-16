@@ -88,7 +88,7 @@ TalentsGui.prototype = {
 		this.masterySpells = [];
 		this.spellDivs = [];
 	    
-	    this.level = 85;
+	    this.level = Character.MAX_LEVEL;
 	    
 	    this.treeNameLinks = [];
 	    this.treeSpentSpan = [];

@@ -12,7 +12,7 @@
 	
 	$db = Database::getConnection();
 	
-	$stmt = DatabaseHelper::query($db, "SELECT `ID` FROM chardev_cataclysm.`item` LIMIT ". $_SERVER['argv'][1] . "," . $_SERVER['argv'][2]);
+	$stmt = DatabaseHelper::query($db, "SELECT `ID` FROM chardev_mop.`item` LIMIT ". $_SERVER['argv'][1] . "," . $_SERVER['argv'][2]);
 	
 	while( $record = $stmt->fetch()) {
 		DatabaseHelper::execute(

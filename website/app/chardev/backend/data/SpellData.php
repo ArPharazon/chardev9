@@ -196,7 +196,7 @@ class SpellData extends Data
 		//
 		//	Parsed description
 		//
-		$chardev_spellinfo = DatabaseHelper::fetchOne($db, "SELECT * FROM chardev_cataclysm_static.`chardev_spellinfo` WHERE `SpellID` = ?", array($record['ID']));
+		$chardev_spellinfo = DatabaseHelper::fetchOne($db, "SELECT * FROM chardev_mop_static.`chardev_spellinfo` WHERE `SpellID` = ?", array($record['ID']));
 
 		$spell[12] = $chardev_spellinfo['Description'.Language::getInstance()->toColumnSuffix()];
 		$spell[13] = (int)$chardev_spellinfo['Scalable'] ? true : false;

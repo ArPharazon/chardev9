@@ -4,7 +4,7 @@
 	
 	require_once __DIR__ . '/../Autoloader.php';
 
-	$records = DatabaseHelper::fetchMany(Database::getConnection(), "SELECT `ID` FROM chardev_cataclysm.`item`");
+	$records = DatabaseHelper::fetchMany(Database::getConnection(), "SELECT `ID` FROM chardev_mop.`item`");
 	
 	$procs = 8;
 	

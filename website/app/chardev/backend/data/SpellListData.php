@@ -107,7 +107,7 @@ class SpellListData extends ListData {
 				"`spell` s".
 				($joinSpellRange?					" INNER JOIN `spellrange` 				sr 		ON sr.`ID` = s.`SpellRangeID`":"").
 				($joinEquippedItems?				" INNER JOIN `spellequippeditems` 		sei 	ON sei.`ID` = s.`SpellEquippedItemsID`":"").
-				($is_enchant?						" INNER JOIN chardev_cataclysm_static.`chardev_enchant_spell` 	ces 	ON s.`ID` = ces.`SpellID`".
+				($is_enchant?						" INNER JOIN chardev_mop_static.`chardev_enchant_spell` 	ces 	ON s.`ID` = ces.`SpellID`".
 						" INNER JOIN `spelleffect` 				se 		ON se.`SpellID` = s.`ID`".
 						" INNER JOIN `spellitemenchantment` 	sie 	ON sie.`ID` = se.`SecondaryEffect`":"").
 						($where?" WHERE ".$where:"").

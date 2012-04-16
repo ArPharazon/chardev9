@@ -2,7 +2,7 @@
 
 
 	mysql_connect("localhost","root", "");
-	mysql_select_db("chardev_cataclysm_static");
+	mysql_select_db("chardev_mop_static");
 	
 	$g_slot_to_rnd_pts_grp = array(
 		1=>0,
@@ -28,19 +28,19 @@
 		26=>4
 	);
 	
-	mysql_query("truncate table chardev_cataclysm_static.chardev_random_suffix");
+	mysql_query("truncate table chardev_mop_static.chardev_random_suffix");
 	$result = mysql_query("
-		select * from chardev_cataclysm.item_sparse i 
-			inner join chardev_cataclysm_static.chardev_item_stats cis on i.id = cis.itemid
+		select * from chardev_mop.item_sparse i 
+			inner join chardev_mop_static.chardev_item_stats cis on i.id = cis.itemid
 			where donotshow = 0 and RandomSuffixID order by id desc limit 0,10000000000
 	");
 	
 	while( $record = mysql_fetch_assoc($result) ) { 
-		//$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_cataclysm_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
+		//$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_mop_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
 		//if( !$bnet_item ) {
 		//	steal_item($record['ID']);
 		//}
-		//$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_cataclysm_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
+		//$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_mop_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
 		//if( !$bnet_item ) {
 		//	echo "Item not found: ".$record['ID']."!\n";
 		//}
@@ -55,7 +55,7 @@
 			if( !$xml ) {
 				echo "invalid xml\n";
 				mysql_query(
-					"delete from chardev_cataclysm_static.chardev_data_bnet_item where ItemID =".$record['ID']
+					"delete from chardev_mop_static.chardev_data_bnet_item where ItemID =".$record['ID']
 				);
 				echo mysql_error();
 				continue;
@@ -82,7 +82,7 @@
 				
 				
 				$points = mysql_fetch_assoc(mysql_query(
-					"SELECT PointsQuality".$record['Quality']."Group".$GLOBALS['g_slot_to_rnd_pts_grp'][(int)$record['InventorySlot']]." as Points FROM chardev_cataclysm.randproppoints WHERE ID = ".(int)$record['Level']
+					"SELECT PointsQuality".$record['Quality']."Group".$GLOBALS['g_slot_to_rnd_pts_grp'][(int)$record['InventorySlot']]." as Points FROM chardev_mop.randproppoints WHERE ID = ".(int)$record['Level']
 				));
 				echo mysql_error();
 				
@@ -94,7 +94,7 @@
 				}
 				
 				$suffix_result = mysql_query(
-					"select * from chardev_cataclysm.itemrandomsuffix where Name like '".$name."'"
+					"select * from chardev_mop.itemrandomsuffix where Name like '".$name."'"
 				);
 				echo mysql_error();
 				

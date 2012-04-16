@@ -7,21 +7,21 @@
 	
 	switch_game_data_base(0);
 	
-	mysql_query("truncate table chardev_cataclysm_static.chardev_random_properties",$GLOBALS['g_db_con']);
+	mysql_query("truncate table chardev_mop_static.chardev_random_properties",$GLOBALS['g_db_con']);
 	$result = mysql_query(
 		"select * ".
-		" from chardev_cataclysm.item_sparse i ".
-		" inner join chardev_cataclysm_static.chardev_item_stats cis on i.id = cis.itemid ".
+		" from chardev_mop.item_sparse i ".
+		" inner join chardev_mop_static.chardev_item_stats cis on i.id = cis.itemid ".
 		" where donotshow = 0 and RandomPropertiesID order by id desc",
 		$GLOBALS['g_db_con']
 	);
 	
 	while( $record = mysql_fetch_assoc($result) ) { 
-		$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_cataclysm_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
+		$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_mop_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
 		if( !$bnet_item ) {
 			steal_item($record['ID']);
 		}
-		$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_cataclysm_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
+		$bnet_item = mysql_fetch_assoc(mysql_query("SELECT * FROM chardev_mop_static.chardev_data_bnet_item WHERE ItemID=".$record['ID']));
 		if( !$bnet_item ) {
 			"Item not found: ".$record['ID']."!\n";
 		}
@@ -35,7 +35,7 @@
 				echo "invalid xml\n";
 				mysql_db_query(
 					$GLOBALS['g_static_db'],
-					"delete from chardev_cataclysm_static.chardev_data_bnet_item where ItemID =".$record['ID'],
+					"delete from chardev_mop_static.chardev_data_bnet_item where ItemID =".$record['ID'],
 					$GLOBALS['g_db_con']
 				);
 				echo mysql_error();
@@ -54,7 +54,7 @@
 				//echo $desc."\n";
 				
 				$pos_props_result = mysql_query(
-					"SELECT * FROM chardev_cataclysm.ItemRandomProperties WHERE `Name` like '".
+					"SELECT * FROM chardev_mop.ItemRandomProperties WHERE `Name` like '".
 					mysql_real_escape_string($name)."'",
 					$GLOBALS['g_db_con']
 				);
@@ -69,7 +69,7 @@
 					for( ; $n < 5 ; $n++ ) {
 						if( $pos_props_record['SpellItemEnchantmentID'.($n+1)] ) {
 							$enchant_result = mysql_query(
-								"SELECT * FROM chardev_cataclysm.SpellItemEnchantment WHERE ID=".
+								"SELECT * FROM chardev_mop.SpellItemEnchantment WHERE ID=".
 								$pos_props_record['SpellItemEnchantmentID'.($n+1)]." ORDER BY `ID` DESC"
 							);
 							if( $enchant_record = mysql_fetch_assoc($enchant_result)) {
@@ -124,7 +124,7 @@
 						
 						echo "Found match for ".$desc." -> ".$imp_desc."\n";
 						mysql_query( 
-							"INSERT INTO chardev_cataclysm_static.chardev_random_properties ".
+							"INSERT INTO chardev_mop_static.chardev_random_properties ".
 							" VALUES (".$record['RandomPropertiesID'].",".$pos_props_record['ID'].")"
 						);
 						$m = 1;

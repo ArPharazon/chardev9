@@ -39,7 +39,7 @@ class CharacterClassData extends Data
 		}
 		
 		$db = Database::getConnection();
-		$stmt = $db->prepare("SELECT * FROM chardev_cataclysm_static.`chardev_base_stats_class_level` WHERE `class`=?");
+		$stmt = $db->prepare("SELECT * FROM chardev_mop_static.`chardev_base_stats_class_level` WHERE `class`=?");
 		$stmt->execute(array($id));
 		DatabaseHelper::testStatement($stmt);
 		$baseStats = array();

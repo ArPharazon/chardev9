@@ -65,7 +65,7 @@ class ItemSetData extends Data
 				"SELECT GROUP_CONCAT(`Name" .
 						 Language::getInstance()->toColumnSuffix() .
 						 "`) as name, InventorySlot FROM `item_sparse` s LEFT JOIN " .
-						 "chardev_cataclysm_static.`chardev_item_stats` cis ON s.`ID`=cis.`ItemID` WHERE `ItemSetID` = ? GROUP BY `InventorySlot`", 
+						 "chardev_mop_static.`chardev_item_stats` cis ON s.`ID`=cis.`ItemID` WHERE `ItemSetID` = ? GROUP BY `InventorySlot`", 
 				array($id)
 		);
 

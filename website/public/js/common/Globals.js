@@ -220,8 +220,6 @@ function g_calculateCastTime( castTimeStart, castTimeEnd, intervals, level ) {
 /** @const */ var INV_ITEMS = 19;
 /** @const */ var ITEM_STATS_COUNT = 56;
 
-/** @const */ var DEFAULT_LEVEL = 85;
-/** @const */ var MAX_LEVEL = 85;
 /** @const */ var REFORGE_ITEM_MIN_LEVEL = 200;
 
 /** @const */ var PROFESSIONS = [164,165,171,182,186,197,202,333,393,755,773]; 

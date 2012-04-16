@@ -13,7 +13,7 @@ class Database {
 			self::$connection->close();
 		}
 		$suffix = \chardev\Language::getInstance()->toDatabaseSuffix();
-		self::$connection = new \PDO("mysql:dbname=chardev_cataclysm{$suffix};host=127.0.0.1", "root", "");
+		self::$connection = new \PDO("mysql:dbname=chardev_mop{$suffix};host=127.0.0.1", "root", "");
 		self::$connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
 		self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}

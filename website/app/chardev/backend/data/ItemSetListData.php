@@ -68,7 +68,7 @@ class ItemSetListData extends ListData {
 		));
 		
 		$query = "SELECT `ID`, `Name`, cis.`MinItemLevel`, cis.`MaxItemLevel`, cis.`MinRequiredCharacterLevel`, cis.`MaxRequiredCharacterLevel`, cis.`MinQuality`, cis.`MaxQuality`, `ItemID1`, `ItemID2`, `ItemID3`, `ItemID4`, `ItemID5`, `ItemID6`, `ItemID7`, `ItemID8`, `ItemID9`, `ItemID10` ".
-					"FROM `itemset` s INNER join chardev_cataclysm_static.`chardev_itemset_stats` cis ON cis.`ItemSetID` = s.`ID` ".
+					"FROM `itemset` s INNER join chardev_mop_static.`chardev_itemset_stats` cis ON cis.`ItemSetID` = s.`ID` ".
 					( $where ? " WHERE ". $where : '' ) . ($orderClause ? " ORDER BY ".$orderClause : ""). " LIMIT ".Constants::SETS_PER_PAGE *($page-1).",".(Constants::SETS_PER_PAGE+1);
 		
 		$records = DatabaseHelper::fetchMany(Database::getConnection(), $query, $values);
