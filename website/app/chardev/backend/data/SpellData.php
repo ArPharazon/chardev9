@@ -124,8 +124,9 @@ class SpellData extends Data
 		// SpellEffect
 		//
 		$spelleffects = array(null,null,null);
-		$joinRecord = DatabaseHelper::fetchOne($db, "SELECT * FROM `spelleffect` WHERE `SpellID` = ? ORDER BY `Index` ASC", array($record['ID']));
-		if( $joinRecord ) {
+		$joinRecords = DatabaseHelper::fetchMany($db, "SELECT * FROM `spelleffect` WHERE `SpellID` = ? ORDER BY `Index` ASC", array($record['ID']));
+		for( $i=0; $i<count($joinRecords); $i++) {
+			$joinRecord = $joinRecords[$i]; 
 			$proc_spell = null;
 	
 			if( (int)$joinRecord['Effect'] == 42 || (int)$joinRecord['Effect'] == 23 ) {

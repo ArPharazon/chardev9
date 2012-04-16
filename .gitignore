@@ -1,0 +1,5 @@
+.settings
+.project
+.buildpath
+website/public/images/icons/*
+BNET_KEYS.inc
