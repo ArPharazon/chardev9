@@ -39,6 +39,16 @@ try {
 	else if(isset($_GET['t']) || preg_match('/^\/talents\/([^\/]+)\.html(?:\?.*|$)/',$uri,$matches)) {
 		$th->setTemplate('Talents',array( 'id-name' => isset($matches) ? $matches[1] : ""));
 	}
+	else if( isset($_GET['profile'])) {
+		$id = (int)$_GET['profile'];
+		if( $id > 0 ) {
+			header("Location: ".TemplateHelper::getBasePath()."profile/" . $id. ".html");
+		}
+		else {
+			header("Location: ".TemplateHelper::getBasePath()."Planner.html");
+		}
+		die;
+	}
 	else if( preg_match('/^\/(?:\?.*|$)/',$uri,$matches)) {
 		$th->setTemplate('Index');
 	}
@@ -56,16 +66,6 @@ try {
 	}
 	else if( preg_match('/^\/baseStats\/([^\/]+)\.html(?:\?.*|$)/',$uri,$matches)) {
 		$th->setTemplate('BaseStats',array( 'id-name' => $matches[1]));
-	}
-	else if( isset($_GET['profile'])) {
-		$id = (int)$_GET['profile'];
-		if( $id > 0 ) {
-			header("Location: ".TemplateHelper::getBasePath()."profile/" . $id. ".html");
-		}
-		else {
-			header("Location: ".TemplateHelper::getBasePath()."Planner.html");
-		}
-		die;
 	}
 	else if( preg_match('/^\/profile\/([^\/]+)\.html(?:\?.*|$)/',$uri,$matches)) {
 		
