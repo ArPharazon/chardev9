@@ -528,11 +528,11 @@ class UserDatabase {
 		$record = DatabaseHelper::fetchOne($this->db, "SELECT * FROM chardev.`user` WHERE `name` LIKE ? OR `email` LIKE ?", array($name, $email));
 		
 		if( $record ) {
-			if( $record['email'] == $email ) {
+			if( strcasecmp($record['email'],$email) === 0 ) {
 				DatabaseHelper::unlock($this->db);
 				throw new \Exception("E-mail address is already in use!");
 			}
-			else if( $record['name'] == $name ) {
+			else if( strcasecmp($record['name'],$name) === 0 ) {
 				DatabaseHelper::unlock($this->db);
 				throw new \Exception("User name is already in use!");
 			}
